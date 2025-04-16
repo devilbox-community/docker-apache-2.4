@@ -39,7 +39,7 @@ This example creates the main (default) vhost, which only serves static files.
    docker run -d -it \
        -p 9090:80 \
        -v $(pwd)/www:/var/www/default \
-       devilbox/apache-2.4
+       devilboxcommunity/apache-2.4
    ```
 3. Verify
    ```bash
@@ -81,7 +81,7 @@ This example creates the main (default) vhost, which contacts a remote PHP-FPM h
        -v $(pwd)/www:/var/www/default \
        -e MAIN_VHOST_BACKEND='conf:phpfpm:tcp:php:9000' \
        --link php \
-       devilbox/apache-2.4
+       devilboxcommunity/apache-2.4
    ```
 4. Verify
    ```bash
@@ -127,7 +127,7 @@ The same as the previous example, but also ensures that you can edit files local
        -e NEW_GID=$(id -g) \
        -e MAIN_VHOST_BACKEND='conf:phpfpm:tcp:php:9000' \
        --link php \
-       devilbox/apache-2.4
+       devilboxcommunity/apache-2.4
    ```
 4. Verify
    ```bash
@@ -179,7 +179,7 @@ Additionally we are mounting the `./ca` directory into the container under `/ca`
        -e MAIN_VHOST_BACKEND='conf:phpfpm:tcp:php:9000' \
        -e MAIN_VHOST_SSL_TYPE='redir' \
        --link php \
-       devilbox/apache-2.4
+       devilboxcommunity/apache-2.4
    ```
 4. Verify redirect
    ```bash
@@ -221,7 +221,7 @@ The following example proxies all HTTP requests to a NodeJS remote backend. You 
    docker run -d -it \
        --name nodejs \
        -v $(pwd)/src:/app \
-       node:19-alpine node /app/app.js
+       node:20-alpine node /app/app.js
    ```
 3. Start Reverse Proxy
    ```bash
@@ -229,7 +229,7 @@ The following example proxies all HTTP requests to a NodeJS remote backend. You 
        -p 80:80 \
        -e MAIN_VHOST_BACKEND='conf:rproxy:http:nodejs:3000' \
        --link nodejs \
-       devilbox/apache-2.4
+       devilboxcommunity/apache-2.4
    ```
 4. Verify
    ```bash
@@ -298,7 +298,7 @@ The following example proxies all HTTP requests to a Websocket remote backend. Y
        --name websocket \
        -v $(pwd)/src:/app \
 	   -w /app \
-       node:19-alpine sh start.sh
+       node:20-alpine sh start.sh
    ```
 3. Start Reverse Proxy
    ```bash
@@ -306,7 +306,7 @@ The following example proxies all HTTP requests to a Websocket remote backend. Y
        -p 80:80 \
        -e MAIN_VHOST_BACKEND='conf:rproxy:ws:websocket:3000' \
        --link websocket \
-       devilbox/apache-2.4
+       devilboxcommunity/apache-2.4
    ```
 4. Verify
    ```bash
@@ -361,7 +361,7 @@ Additionally all projects will have the `.com` suffix added to their domain name
        -e MASS_VHOST_BACKEND='conf:phpfpm:tcp:php:9000' \
        --link php \
        --link mysql \
-       devilbox/apache-2.4
+       devilboxcommunity/apache-2.4
    ```
 5. Create `project-1`
    ```bash
